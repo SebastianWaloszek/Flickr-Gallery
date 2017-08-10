@@ -10,8 +10,10 @@
 		7181C14F1F3C7413002FA8F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C14E1F3C7413002FA8F4 /* AppDelegate.swift */; };
 		7181C1561F3C7413002FA8F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7181C1551F3C7413002FA8F4 /* Assets.xcassets */; };
 		7181C1591F3C7413002FA8F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C1571F3C7413002FA8F4 /* LaunchScreen.storyboard */; };
-		7181C1641F3C7413002FA8F4 /* Flickr_GalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1631F3C7413002FA8F4 /* Flickr_GalleryTests.swift */; };
+		7181C1641F3C7413002FA8F4 /* FlickrPostCollectionVCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1631F3C7413002FA8F4 /* FlickrPostCollectionVCTests.swift */; };
 		7181C1701F3C785F002FA8F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C16F1F3C785F002FA8F4 /* Main.storyboard */; };
+		7181C1761F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1751F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift */; };
+		7181C17A1F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,9 +33,11 @@
 		7181C1581F3C7413002FA8F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7181C15A1F3C7413002FA8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7181C15F1F3C7413002FA8F4 /* Flickr GalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flickr GalleryTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		7181C1631F3C7413002FA8F4 /* Flickr_GalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flickr_GalleryTests.swift; sourceTree = "<group>"; };
+		7181C1631F3C7413002FA8F4 /* FlickrPostCollectionVCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPostCollectionVCTests.swift; sourceTree = "<group>"; };
 		7181C1651F3C7413002FA8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7181C16F1F3C785F002FA8F4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		7181C1751F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPostCollectionViewController.swift; sourceTree = "<group>"; };
+		7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerPostCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,7 +79,7 @@
 		7181C14D1F3C7413002FA8F4 /* Flickr Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				7181C16F1F3C785F002FA8F4 /* Main.storyboard */,
+				7181C1711F3C7A2B002FA8F4 /* Public Image Feed */,
 				7181C1551F3C7413002FA8F4 /* Assets.xcassets */,
 				7181C16E1F3C7469002FA8F4 /* Supporting Files */,
 			);
@@ -85,7 +89,7 @@
 		7181C1621F3C7413002FA8F4 /* Flickr GalleryTests */ = {
 			isa = PBXGroup;
 			children = (
-				7181C1631F3C7413002FA8F4 /* Flickr_GalleryTests.swift */,
+				7181C1631F3C7413002FA8F4 /* FlickrPostCollectionVCTests.swift */,
 				7181C1651F3C7413002FA8F4 /* Info.plist */,
 			);
 			path = "Flickr GalleryTests";
@@ -99,6 +103,24 @@
 				7181C15A1F3C7413002FA8F4 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7181C1711F3C7A2B002FA8F4 /* Public Image Feed */ = {
+			isa = PBXGroup;
+			children = (
+				7181C1741F3C7A95002FA8F4 /* Views */,
+			);
+			path = "Public Image Feed";
+			sourceTree = "<group>";
+		};
+		7181C1741F3C7A95002FA8F4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7181C1751F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift */,
+				7181C16F1F3C785F002FA8F4 /* Main.storyboard */,
+				7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -203,6 +225,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7181C14F1F3C7413002FA8F4 /* AppDelegate.swift in Sources */,
+				7181C1761F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift in Sources */,
+				7181C17A1F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7181C1641F3C7413002FA8F4 /* Flickr_GalleryTests.swift in Sources */,
+				7181C1641F3C7413002FA8F4 /* FlickrPostCollectionVCTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,7 +372,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2396N25GLF;
-				INFOPLIST_FILE = "Flickr Gallery/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Flickr Gallery/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianwaloszek.Flickr-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -362,7 +386,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 2396N25GLF;
-				INFOPLIST_FILE = "Flickr Gallery/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Flickr Gallery/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sebastianwaloszek.Flickr-Gallery";
 				PRODUCT_NAME = "$(TARGET_NAME)";

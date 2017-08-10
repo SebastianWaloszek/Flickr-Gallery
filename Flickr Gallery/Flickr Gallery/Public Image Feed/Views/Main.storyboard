@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="3Wk-m2-oU4">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Flickr Public Feed-->
+        <scene sceneID="Psp-W3-iRl">
+            <objects>
+                <collectionViewController storyboardIdentifier="FlickrPostsVC" id="3Wk-m2-oU4" customClass="FlickrPostCollectionViewController" customModule="Flickr_Gallery" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="bUK-M1-3zC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="2" minimumInteritemSpacing="10" id="X3T-C8-0bo">
+                            <size key="itemSize" width="375" height="350"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FlickrPostCell" id="3Wt-E8-l8e" userLabel="Collection View Cell" customClass="FlickerPostCollectionViewCell" customModule="Flickr_Gallery" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RiC-KV-ER6" userLabel="Photo Image View">
+                                            <rect key="frame" x="5" y="5" width="365" height="315"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t83-Av-m9i">
+                                            <rect key="frame" x="5" y="324.5" width="365" height="20.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="t83-Av-m9i" secondAttribute="bottom" constant="5" id="BRI-u6-nE1"/>
+                                    <constraint firstItem="RiC-KV-ER6" firstAttribute="top" secondItem="3Wt-E8-l8e" secondAttribute="top" constant="5" id="MEc-H3-425"/>
+                                    <constraint firstAttribute="trailing" secondItem="RiC-KV-ER6" secondAttribute="trailing" constant="5" id="O0g-j4-ucn"/>
+                                    <constraint firstItem="t83-Av-m9i" firstAttribute="top" secondItem="RiC-KV-ER6" secondAttribute="bottom" constant="5" id="RiO-KS-arm"/>
+                                    <constraint firstAttribute="trailing" secondItem="RiC-KV-ER6" secondAttribute="trailing" constant="5" id="eaC-qs-ayL"/>
+                                    <constraint firstItem="RiC-KV-ER6" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leading" constant="5" id="gIh-GD-pVg"/>
+                                    <constraint firstItem="RiC-KV-ER6" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leading" constant="5" id="jwJ-yk-2c5"/>
+                                    <constraint firstItem="RiC-KV-ER6" firstAttribute="top" secondItem="3Wt-E8-l8e" secondAttribute="top" constant="5" id="nJe-l9-jvH"/>
+                                    <constraint firstItem="t83-Av-m9i" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leading" constant="5" id="rzh-T2-sZt"/>
+                                    <constraint firstAttribute="trailing" secondItem="t83-Av-m9i" secondAttribute="trailing" constant="5" id="ypi-qb-z8d"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="photoImageView" destination="RiC-KV-ER6" id="peq-SE-qf5"/>
+                                    <outlet property="postAuthorLabel" destination="t83-Av-m9i" id="RO6-iy-2gq"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="3Wk-m2-oU4" id="R1E-vp-R3t"/>
+                            <outlet property="delegate" destination="3Wk-m2-oU4" id="iZZ-r9-O0q"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Flickr Public Feed" id="r7U-CR-OsI"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lpi-gi-X58" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="381.60000000000002" y="99.400299850074973"/>
+        </scene>
+    </scenes>
+</document>
