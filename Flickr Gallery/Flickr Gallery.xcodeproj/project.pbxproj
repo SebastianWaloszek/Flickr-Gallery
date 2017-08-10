@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7181C14F1F3C7413002FA8F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C14E1F3C7413002FA8F4 /* AppDelegate.swift */; };
-		7181C1541F3C7413002FA8F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C1521F3C7413002FA8F4 /* Main.storyboard */; };
 		7181C1561F3C7413002FA8F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7181C1551F3C7413002FA8F4 /* Assets.xcassets */; };
 		7181C1591F3C7413002FA8F4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C1571F3C7413002FA8F4 /* LaunchScreen.storyboard */; };
 		7181C1641F3C7413002FA8F4 /* Flickr_GalleryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1631F3C7413002FA8F4 /* Flickr_GalleryTests.swift */; };
+		7181C1701F3C785F002FA8F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C16F1F3C785F002FA8F4 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,13 +27,13 @@
 /* Begin PBXFileReference section */
 		7181C14B1F3C7413002FA8F4 /* Flickr Gallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Flickr Gallery.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7181C14E1F3C7413002FA8F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7181C1531F3C7413002FA8F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7181C1551F3C7413002FA8F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7181C1581F3C7413002FA8F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7181C15A1F3C7413002FA8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7181C15F1F3C7413002FA8F4 /* Flickr GalleryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flickr GalleryTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7181C1631F3C7413002FA8F4 /* Flickr_GalleryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flickr_GalleryTests.swift; sourceTree = "<group>"; };
 		7181C1651F3C7413002FA8F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7181C16F1F3C785F002FA8F4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +75,9 @@
 		7181C14D1F3C7413002FA8F4 /* Flickr Gallery */ = {
 			isa = PBXGroup;
 			children = (
-				7181C16E1F3C7469002FA8F4 /* Supporting Files */,
-				7181C1521F3C7413002FA8F4 /* Main.storyboard */,
+				7181C16F1F3C785F002FA8F4 /* Main.storyboard */,
 				7181C1551F3C7413002FA8F4 /* Assets.xcassets */,
+				7181C16E1F3C7469002FA8F4 /* Supporting Files */,
 			);
 			path = "Flickr Gallery";
 			sourceTree = "<group>";
@@ -182,9 +182,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7181C1701F3C785F002FA8F4 /* Main.storyboard in Resources */,
 				7181C1591F3C7413002FA8F4 /* LaunchScreen.storyboard in Resources */,
 				7181C1561F3C7413002FA8F4 /* Assets.xcassets in Resources */,
-				7181C1541F3C7413002FA8F4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,14 +225,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		7181C1521F3C7413002FA8F4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				7181C1531F3C7413002FA8F4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		7181C1571F3C7413002FA8F4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
