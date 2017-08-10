@@ -14,6 +14,8 @@
 		7181C1701F3C785F002FA8F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7181C16F1F3C785F002FA8F4 /* Main.storyboard */; };
 		7181C1761F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1751F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift */; };
 		7181C17A1F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */; };
+		71E59D7A1F3CC5B800DCC968 /* FlickrWebsiteDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E59D791F3CC5B800DCC968 /* FlickrWebsiteDescription.swift */; };
+		71E59D7C1F3CC70400DCC968 /* FlickrPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E59D7B1F3CC70400DCC968 /* FlickrPost.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		7181C16F1F3C785F002FA8F4 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		7181C1751F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPostCollectionViewController.swift; sourceTree = "<group>"; };
 		7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickerPostCollectionViewCell.swift; sourceTree = "<group>"; };
+		71E59D791F3CC5B800DCC968 /* FlickrWebsiteDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrWebsiteDescription.swift; sourceTree = "<group>"; };
+		71E59D7B1F3CC70400DCC968 /* FlickrPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPost.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 		7181C1711F3C7A2B002FA8F4 /* Public Image Feed */ = {
 			isa = PBXGroup;
 			children = (
+				71E59D781F3CC56200DCC968 /* Models */,
 				7181C1741F3C7A95002FA8F4 /* Views */,
 			);
 			path = "Public Image Feed";
@@ -121,6 +126,15 @@
 				7181C1791F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		71E59D781F3CC56200DCC968 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				71E59D791F3CC5B800DCC968 /* FlickrWebsiteDescription.swift */,
+				71E59D7B1F3CC70400DCC968 /* FlickrPost.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,7 +238,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71E59D7A1F3CC5B800DCC968 /* FlickrWebsiteDescription.swift in Sources */,
 				7181C14F1F3C7413002FA8F4 /* AppDelegate.swift in Sources */,
+				71E59D7C1F3CC70400DCC968 /* FlickrPost.swift in Sources */,
 				7181C1761F3C7B26002FA8F4 /* FlickrPostCollectionViewController.swift in Sources */,
 				7181C17A1F3C8255002FA8F4 /* FlickerPostCollectionViewCell.swift in Sources */,
 			);

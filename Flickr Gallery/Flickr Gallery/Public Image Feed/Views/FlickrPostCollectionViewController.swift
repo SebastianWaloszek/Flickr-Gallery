@@ -10,6 +10,14 @@ import UIKit
 
 class FlickrPostCollectionViewController: UICollectionViewController {
 
+// MARK: Model
+    var flickrPosts = [FlickrPost](){
+        //Reload the collectionView when new posts where set
+        didSet{
+            self.collectionView?.reloadData()
+        }
+    }
+    
 // MARK: Constants
     private struct Constants {
         // Identifier for the reusable cell in the collection view
@@ -18,11 +26,19 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         // The number of sections in the collection view
         static let numberOfSections = 1
         
-        // The number of sections in the collection view for testing purposes.
-        static let numberOfItemsInSection = 3
+        // The url of the public feed flickr posts in json format
+        static let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
     }
     
+// MARK: Initialization
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Get and set the flickr posts from the public feed
+        setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
+    }
+
 // MARK: UICollectionViewDataSource
     
     //Return the number of sections in the collection view
@@ -32,7 +48,7 @@ class FlickrPostCollectionViewController: UICollectionViewController {
 
     //Return the number of items in the collection view
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Constants.numberOfItemsInSection
+        return flickrPosts.count
     }
 
     //Return the cell for a given index
@@ -45,12 +61,71 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
             // Configure the cell
             
-            //Change the cell's image backgroundColor for testing purposes
-            flickrPostCell.photoImageView.backgroundColor = UIColor.red
-            //Change the post's author label for testing purposes
-            flickrPostCell.postAuthorLabel.text = "Author #\(indexPath.item)"
+            // Set the flickr post's image
+            do{
+                let imageData = try Data(contentsOf: flickrPosts[indexPath.item].media["m"]!)
+                flickrPostCell.photoImageView.image = UIImage(data: imageData)
+            }
+            catch let imageDataError{
+                print(imageDataError.localizedDescription)
+            }
+         
+            // Remove the unnessery parts of the author string
+            let authorString = flickrPosts[indexPath.item].author!.replacingOccurrences(
+                of: "nobody@flickr.com (\"",
+                with: ""
+                ).replacingOccurrences(
+                    of: "\")",
+                    with: ""
+            )
+            
+            // Change the post's author label
+            flickrPostCell.postAuthorLabel.text = "\(authorString)"
         }
 
         return cell
     }
+}
+// MARK: URLSession
+extension FlickrPostCollectionViewController{
+    
+    // Get and set the flickr posts from the public feed
+    func setPublicFeedPosts(forURLString urlString:String){
+        
+        // Try creating and URL from given string
+        guard let flickrPublicFeedURL = URL(string: urlString) else {
+            print("Error while creating URL from String")
+            return
+        }
+        
+        // Create a dataTask to get the flickr public feed data
+        URLSession.shared.dataTask(with: flickrPublicFeedURL, completionHandler: { [weak self] (data, response, error) in
+            
+            // Check if data isn't nil
+            guard let data = data else{
+                print("Data is nil")
+                return
+            }
+            
+            do{
+                // Set up the json decoder
+                let jsonDecoder = JSONDecoder()
+                jsonDecoder.dateDecodingStrategy = .iso8601
+                
+                // Try to decode json from the aquired data
+                let websiteDescription = try jsonDecoder.decode(FlickrWebsiteDescription.self, from: data)
+                
+                // Take the task of setting the flickr posts to the main queue
+                DispatchQueue.main.async {
+                    self?.flickrPosts = websiteDescription.posts
+                }
+
+            }
+            catch let jsonError{
+                print(jsonError.localizedDescription)
+            }
+            
+        }).resume()
+    }
+    
 }
