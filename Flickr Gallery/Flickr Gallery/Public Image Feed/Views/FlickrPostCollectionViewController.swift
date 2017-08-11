@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageUI
+import SDWebImage
+
 class FlickrPostCollectionViewController: UICollectionViewController {
 
 // MARK: Model
@@ -91,13 +93,7 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         let post = flickrPosts[indexPath.item]
         
         // Set the flickr post's image
-        do{
-            let imageData = try Data(contentsOf: post.media["m"]!)
-            cell.photoImageView.image = UIImage(data: imageData)
-        }
-        catch let imageDataError{
-            print(imageDataError.localizedDescription)
-        }
+         cell.photoImageView.sd_setImage(with: post.media["m"], completed: nil)
         
         // Remove the unnessery parts of the author string
         let authorString = post.author!.replacingOccurrences(
