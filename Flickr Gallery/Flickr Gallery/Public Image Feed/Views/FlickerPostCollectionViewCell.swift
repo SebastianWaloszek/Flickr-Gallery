@@ -10,9 +10,12 @@ import UIKit
 
 class FlickerPostCollectionViewCell: UICollectionViewCell {
     
-    //Displays photo in flickr post
+    // Displays photo in flickr post
     @IBOutlet weak var photoImageView: UIImageView!
 
-    //Displays the name of the author of the flickr post
+    // Displays the name of the author of the flickr post
     @IBOutlet weak var postAuthorLabel: UILabel!
+    
+    // Button for sharing post's contents
+    @IBOutlet weak var shareButton: UIButton!
 }

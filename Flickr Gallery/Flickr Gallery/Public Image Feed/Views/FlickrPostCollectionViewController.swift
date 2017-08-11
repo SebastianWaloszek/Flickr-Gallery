@@ -59,32 +59,56 @@ class FlickrPostCollectionViewController: UICollectionViewController {
     
         //Check if the cell can be casted to custom class
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
-            // Configure the cell
-            
-            // Set the flickr post's image
-            do{
-                let imageData = try Data(contentsOf: flickrPosts[indexPath.item].media["m"]!)
-                flickrPostCell.photoImageView.image = UIImage(data: imageData)
-            }
-            catch let imageDataError{
-                print(imageDataError.localizedDescription)
-            }
-         
-            // Remove the unnessery parts of the author string
-            let authorString = flickrPosts[indexPath.item].author!.replacingOccurrences(
-                of: "nobody@flickr.com (\"",
-                with: ""
-                ).replacingOccurrences(
-                    of: "\")",
-                    with: ""
-            )
-            
-            // Change the post's author label
-            flickrPostCell.postAuthorLabel.text = "\(authorString)"
+            configureAsFLickrPost(theCell: flickrPostCell, atIndexPath: indexPath)
         }
 
         return cell
     }
+    
+    // Make the cell display flickr post contents
+    private func configureAsFLickrPost(theCell cell:FlickerPostCollectionViewCell,atIndexPath indexPath:IndexPath){
+        // Set the flickr post's image
+        do{
+            let imageData = try Data(contentsOf: flickrPosts[indexPath.item].media["m"]!)
+            cell.photoImageView.image = UIImage(data: imageData)
+        }
+        catch let imageDataError{
+            print(imageDataError.localizedDescription)
+        }
+        
+        // Remove the unnessery parts of the author string
+        let authorString = flickrPosts[indexPath.item].author!.replacingOccurrences(
+            of: "nobody@flickr.com (\"",
+            with: ""
+            ).replacingOccurrences(
+                of: "\")",
+                with: ""
+        )
+        
+        // Change the post's author label
+        cell.postAuthorLabel.text = "\(authorString)"
+        
+        // Set up the shareButton to display the action sheet for given cell
+        cell.shareButton.tag = indexPath.row
+        cell.shareButton.addTarget(self, action: #selector(self.shareButtonPressed(sender:)), for: .touchUpInside)
+    }
+    
+    // Display the action sheed the the shareButton is pressed
+    @objc func shareButtonPressed(sender: UIButton){
+        // Prepare a blank actionSheet
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        // Add actions
+        actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Share image by email", style: .default, handler: nil))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        // Show the action sheet
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
 }
 // MARK: URLSession
 extension FlickrPostCollectionViewController{
@@ -120,8 +144,7 @@ extension FlickrPostCollectionViewController{
                     self?.flickrPosts = websiteDescription.posts
                 }
 
-            }
-            catch let jsonError{
+            }catch let jsonError{
                 print(jsonError.localizedDescription)
             }
             
@@ -129,3 +152,5 @@ extension FlickrPostCollectionViewController{
     }
     
 }
+
+
