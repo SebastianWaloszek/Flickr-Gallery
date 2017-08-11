@@ -55,23 +55,56 @@
                                             </constraints>
                                             <state key="normal" image="icons-reply_arrow"/>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Published: 01/04/1976 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="biX-Nf-8ah">
+                                            <rect key="frame" x="220" y="370" width="130" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="rK4-8r-O1J"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Taken: 01/04/1976 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5R-ly-unt">
+                                            <rect key="frame" x="243" y="7" width="107" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tag1 tag2 tag3" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dK1-yC-xS1">
+                                            <rect key="frame" x="25" y="359" width="187" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="25" id="GLA-ah-rMv"/>
+                                                <constraint firstAttribute="width" constant="187" id="YDA-DN-vo2"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </view>
                                 <color key="backgroundColor" red="0.96763735702963194" green="0.962962780425624" blue="0.97231193363363977" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
+                                    <constraint firstItem="dK1-yC-xS1" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leading" constant="25" id="5uj-xX-ebw"/>
+                                    <constraint firstItem="dK1-yC-xS1" firstAttribute="top" secondItem="t83-Av-m9i" secondAttribute="bottom" constant="5" id="Bzx-M7-2bo"/>
+                                    <constraint firstAttribute="bottom" secondItem="biX-Nf-8ah" secondAttribute="bottom" constant="5" id="GFh-sq-f3p"/>
                                     <constraint firstItem="t83-Av-m9i" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leadingMargin" constant="17" id="Gq7-9N-Ez2"/>
                                     <constraint firstItem="t83-Av-m9i" firstAttribute="top" secondItem="RiC-KV-ER6" secondAttribute="bottom" constant="8" id="J9Y-5Q-SAg"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="xmo-a3-EW2" secondAttribute="trailing" constant="25" id="JOK-A1-LbD"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="xmo-a3-EW2" secondAttribute="trailing" constant="25" id="JXb-NG-f7f"/>
+                                    <constraint firstAttribute="trailing" secondItem="biX-Nf-8ah" secondAttribute="trailing" constant="25" id="Md9-wp-jew"/>
                                     <constraint firstItem="RiC-KV-ER6" firstAttribute="top" secondItem="3Wt-E8-l8e" secondAttribute="top" constant="25" id="X53-kX-70o"/>
                                     <constraint firstItem="RiC-KV-ER6" firstAttribute="leading" secondItem="3Wt-E8-l8e" secondAttribute="leading" constant="25" id="ZrC-Kz-PGU"/>
                                     <constraint firstItem="xmo-a3-EW2" firstAttribute="top" secondItem="RiC-KV-ER6" secondAttribute="bottom" constant="8" id="ePv-NO-cEM"/>
                                     <constraint firstAttribute="trailing" secondItem="RiC-KV-ER6" secondAttribute="trailing" constant="25" id="kLF-GB-Nqj"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="datePublishedLabel" destination="biX-Nf-8ah" id="5Te-8O-b5w"/>
+                                    <outlet property="dateTakenLabel" destination="e5R-ly-unt" id="wEo-IS-3DF"/>
                                     <outlet property="photoImageView" destination="RiC-KV-ER6" id="peq-SE-qf5"/>
                                     <outlet property="postAuthorLabel" destination="t83-Av-m9i" id="RO6-iy-2gq"/>
                                     <outlet property="shareButton" destination="xmo-a3-EW2" id="stK-uz-ly9"/>
+                                    <outlet property="tagsLabel" destination="dK1-yC-xS1" id="6dX-va-aUs"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

@@ -67,9 +67,13 @@ class FlickrPostCollectionViewController: UICollectionViewController {
     
     // Make the cell display flickr post contents
     private func configureAsFLickrPost(theCell cell:FlickerPostCollectionViewCell,atIndexPath indexPath:IndexPath){
+        
+        // Get the flickr post atIndexPath
+        let post = flickrPosts[indexPath.item]
+        
         // Set the flickr post's image
         do{
-            let imageData = try Data(contentsOf: flickrPosts[indexPath.item].media["m"]!)
+            let imageData = try Data(contentsOf: post.media["m"]!)
             cell.photoImageView.image = UIImage(data: imageData)
         }
         catch let imageDataError{
@@ -77,7 +81,7 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         }
         
         // Remove the unnessery parts of the author string
-        let authorString = flickrPosts[indexPath.item].author!.replacingOccurrences(
+        let authorString = post.author!.replacingOccurrences(
             of: "nobody@flickr.com (\"",
             with: ""
             ).replacingOccurrences(
@@ -85,8 +89,17 @@ class FlickrPostCollectionViewController: UICollectionViewController {
                 with: ""
         )
         
-        // Change the post's author label
+        // Set the post's author
         cell.postAuthorLabel.text = "\(authorString)"
+        
+        // Set the post's published date
+        cell.datePublishedLabel.text = "Published: \(post.publishedDate.toFormattedString())"
+
+        // Set the date on which the photo was taken
+        cell.dateTakenLabel.text = "Taken: \(post.photoTakenDate.toFormattedString())"
+        
+        // Set the post's tags
+        cell.tagsLabel.text = "\(post.tags)"
         
         // Set up the shareButton to display the action sheet for given cell
         cell.shareButton.tag = indexPath.row
@@ -228,6 +241,16 @@ extension FlickrPostCollectionViewController: MFMailComposeViewControllerDelegat
     // Hide the email sending view after sending email
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true, completion: nil)
+    }
+}
+// MARK: Date - Extension
+extension Date{
+    // Return the date as string in dd/MM/yyyy format
+    func toFormattedString () -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy"
+        
+        return dateFormatter.string(from: self)
     }
 }
 
