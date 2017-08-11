@@ -100,7 +100,18 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         
         // Add actions
         actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: { (action) in
+            
+            // Check and open the image url in the browser
+            guard let url = self.flickrPosts[sender.tag].media["m"] else {
+                print("Invalid image URL")
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+
+        }))
         actionSheet.addAction(UIAlertAction(title: "Share image by email", style: .default, handler: nil))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -108,6 +119,7 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         // Show the action sheet
         present(actionSheet, animated: true, completion: nil)
     }
+    
     
 }
 // MARK: URLSession
@@ -152,5 +164,4 @@ extension FlickrPostCollectionViewController{
     }
     
 }
-
 
