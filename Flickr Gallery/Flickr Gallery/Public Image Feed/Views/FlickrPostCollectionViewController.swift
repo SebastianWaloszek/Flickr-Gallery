@@ -32,11 +32,30 @@ class FlickrPostCollectionViewController: UICollectionViewController {
     
 // MARK: Initialization
     
+    // For refreshing and getting new posts from flickr feed
+    private var postsRefresher = UIRefreshControl(){
+        // Set up the refresher and it to the subview
+        didSet{
+            postsRefresher.tintColor = UIColor.white
+            postsRefresher.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
+            collectionView?.addSubview(postsRefresher)
+        }
+    }
+    
+    // Get new posts and then end refreshing
+    @objc func refreshPosts() {
+        setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
+        postsRefresher.endRefreshing()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Get and set the flickr posts from the public feed
         setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
+        
+        // Initialize and set up the refresher
+        postsRefresher = UIRefreshControl()
     }
 
 // MARK: UICollectionViewDataSource
