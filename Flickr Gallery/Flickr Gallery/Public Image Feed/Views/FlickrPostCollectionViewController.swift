@@ -106,7 +106,24 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         // Add action to save image in device
-        actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: { (action) in
+
+            do {
+                let imageData = try Data(contentsOf: imageURL)
+                if let image = UIImage(data: imageData){
+                    // Save the image to system gallery
+                    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+                    
+                    // Inform the user that image was succesfully saved
+                    let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                }
+            }catch let imageDataError{
+                print(imageDataError.localizedDescription)
+            }
+
+        }))
         
         // Add action to open image in browser
         actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: { (action) in
