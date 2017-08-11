@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import MessageUI
 class FlickrPostCollectionViewController: UICollectionViewController {
 
 // MARK: Model
@@ -93,27 +93,36 @@ class FlickrPostCollectionViewController: UICollectionViewController {
         cell.shareButton.addTarget(self, action: #selector(self.shareButtonPressed(sender:)), for: .touchUpInside)
     }
     
-    // Display the action sheed the the shareButton is pressed
+    // Display the action sheed when the shareButton is pressed
     @objc func shareButtonPressed(sender: UIButton){
+        
+        // Check the image url
+        guard let imageURL = self.flickrPosts[sender.tag].media["m"] else {
+            print("Invalid image URL")
+            return
+        }
+        
         // Prepare a blank actionSheet
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        // Add actions
+        // Add action to save image in device
         actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: nil))
-        actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: { (action) in
-            
-            // Check and open the image url in the browser
-            guard let url = self.flickrPosts[sender.tag].media["m"] else {
-                print("Invalid image URL")
-                return
-            }
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-
-        }))
-        actionSheet.addAction(UIAlertAction(title: "Share image by email", style: .default, handler: nil))
         
+        // Add action to open image in browser
+        actionSheet.addAction(UIAlertAction(title: "Open image in browser", style: .default, handler: { (action) in
+            // Check and open the image url in the browser
+            if UIApplication.shared.canOpenURL(imageURL) {
+                UIApplication.shared.open(imageURL, options: [:], completionHandler: nil)
+            }
+        }))
+        
+        // Add action to send an email with the image
+        actionSheet.addAction(UIAlertAction(title: "Share image by email", style: .default, handler: { (action) in
+            // Send the image using the image's url
+            self.sendMail(withImage: imageURL)
+        }))
+        
+        // Dismiss the actionSheet
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         // Show the action sheet
@@ -163,5 +172,45 @@ extension FlickrPostCollectionViewController{
         }).resume()
     }
     
+}
+
+// MARK: MFMailCompose
+extension FlickrPostCollectionViewController: MFMailComposeViewControllerDelegate{
+    
+    // Send email with image under given url
+    func sendMail(withImage imageURL: URL) {
+        // Check if email can be send
+        if MFMailComposeViewController.canSendMail() {
+            // Create viewController for sending email
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self;
+            
+            do{
+                // Get the image data from the url
+                let imageData = try Data(contentsOf: imageURL)
+                
+                // Get image name from url
+                let imageURLWithoutExt = imageURL.deletingPathExtension()
+                let imageName = imageURLWithoutExt.lastPathComponent
+                
+                // Attach image to email
+                mail.addAttachmentData(imageData,
+                                       mimeType: "image/jpg",
+                                       fileName: imageName
+                )
+                
+                // Present the email sending view
+                self.present(mail, animated: true, completion: nil)
+                
+            }catch let imageDataError{
+                print(imageDataError.localizedDescription)
+            }
+        }
+    }
+    
+    // Hide the email sending view after sending email
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
 }
 
