@@ -65,7 +65,12 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         postsRefresher = UIRefreshControl()
         
         // Make the segmented control look more square
-        dateSortingControl.layer.borderColor = UIColor.white.cgColor
+        dateSortingControl.layer.borderColor = UIColor(
+            red: 0,
+            green: 123/255,
+            blue: 255/255,
+            alpha: 1
+        ).cgColor
         dateSortingControl.layer.borderWidth = 1.5
     }
     
