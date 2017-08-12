@@ -48,9 +48,10 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         }
     }
     
-    // Get new posts and then end refreshing
+    // Get new posts,sort them and then end refreshing
     @objc func refreshPosts() {
         setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
+        sortPosts(bySortingIndex: dateSortingControl.selectedSegmentIndex)
         postsRefresher.endRefreshing()
     }
     
@@ -67,7 +68,35 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         dateSortingControl.layer.borderColor = UIColor.white.cgColor
         dateSortingControl.layer.borderWidth = 1.5
     }
-
+    
+// MARK: Sorting posts
+    
+    private enum Sorting:Int{
+        case byDatePublished
+        case byDateTaken
+    }
+    
+    // Sort the posts after the sorting mode was changed
+    @IBAction func changePostsSorting(_ sender: UISegmentedControl) {
+        sortPosts(bySortingIndex: sender.selectedSegmentIndex)
+    }
+    
+    //Sort the posts by date
+    private func sortPosts(bySortingIndex sortingIndex:Int){
+        switch sortingIndex {
+        // Sort the posts by newest publish date
+        case Sorting.byDatePublished.rawValue:
+            flickrPosts = flickrPosts.sorted(by: {$0.publishedDate > $1.publishedDate })
+            
+         // Sort the posts by newest photo taken date
+        case Sorting.byDateTaken.rawValue:
+            flickrPosts = flickrPosts.sorted(by: {$0.photoTakenDate > $1.photoTakenDate })
+            
+        default:
+            break
+        }
+    }
+    
 // MARK: UICollectionViewDataSource
 
     //Return the number of sections in the collection view
@@ -213,9 +242,10 @@ extension FlickrPostCollectionViewController{
                 // Try to decode json from the aquired data
                 let websiteDescription = try jsonDecoder.decode(FlickrWebsiteDescription.self, from: data)
                 
-                // Take the task of setting the flickr posts to the main queue
+                // Take the task of setting and sorting the flickr posts to the main queue
                 DispatchQueue.main.async {
                     self?.flickrPosts = websiteDescription.posts
+                    self?.sortPosts(bySortingIndex: (self?.dateSortingControl?.selectedSegmentIndex)!)
                 }
 
             }catch let jsonError{
