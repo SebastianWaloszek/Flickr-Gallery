@@ -296,14 +296,5 @@ extension FlickrPostCollectionViewController: MFMailComposeViewControllerDelegat
         controller.dismiss(animated: true, completion: nil)
     }
 }
-// MARK: Date - Extension
-extension Date{
-    // Return the date as string in dd/MM/yyyy format
-    func toFormattedString () -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy"
-        
-        return dateFormatter.string(from: self)
-    }
-}
+
 
