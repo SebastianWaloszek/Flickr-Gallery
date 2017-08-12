@@ -10,8 +10,11 @@ import UIKit
 import MessageUI
 import SDWebImage
 
-class FlickrPostCollectionViewController: UICollectionViewController {
+class FlickrPostCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
+// MARK: IBOutlet
+    @IBOutlet weak var collectionView: UICollectionView!
+    
 // MARK: Model
     var flickrPosts = [FlickrPost](){
         //Reload the collectionView when new posts where set
@@ -61,23 +64,23 @@ class FlickrPostCollectionViewController: UICollectionViewController {
     }
 
 // MARK: UICollectionViewDataSource
-    
+
     //Return the number of sections in the collection view
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Constants.numberOfSections
     }
 
     //Return the number of items in the collection view
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return flickrPosts.count
     }
 
     //Return the cell for a given index
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
         //Get the cell from the collectionView using the specified identifier
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.cellReuseIdentifier, for: indexPath)
-    
+
         //Check if the cell can be casted to custom class
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
             configureAsFLickrPost(theCell: flickrPostCell, atIndexPath: indexPath)

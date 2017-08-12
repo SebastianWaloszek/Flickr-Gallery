@@ -21,6 +21,9 @@ class FlickrPostCollectionVCTests: XCTestCase {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         collectionViewController = storyboard.instantiateViewController(withIdentifier: "FlickrPostsVC") as! FlickrPostCollectionViewController
         
+        // Trigger view load 
+        _ = collectionViewController.view
+        
         collectionView = collectionViewController.collectionView
         
     }
