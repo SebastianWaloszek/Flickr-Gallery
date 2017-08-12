@@ -15,7 +15,9 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateSortingControl: UISegmentedControl!
-
+    @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
+    
     // MARK: Model
     var flickrPosts = [FlickrPost](){
         //Reload the collectionView when new posts where set
@@ -36,11 +38,24 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         static let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
     }
     
-
+    // MARK: Searching by tag
+    @objc private func searchForPosts() {
+        
+        // If no tag was given search for posts without any criteria
+        guard let singleTag = searchTextField.text?.components(separatedBy: " ").first else{
+            setPublicFeedPosts(forURLString:  Constants.flickrPublicFeedString)
+            return
+        }
+    
+        // Prepare URL and search for posts with given tag
+        let searchURL = Constants.flickrPublicFeedString + "&tags=\(singleTag)"
+        setPublicFeedPosts(forURLString:  searchURL)
+    }
+    
     // MARK: Refreshing
     // For refreshing and getting new posts from flickr feed
     private var postsRefresher = UIRefreshControl(){
-        // Set up the refresher and it to the subview
+        // Set up the refresher and add it to the subview
         didSet{
             postsRefresher.tintColor = UIColor.white
             postsRefresher.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
@@ -49,16 +64,15 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     
     // Get new posts,sort them and then end refreshing
     @objc func refreshPosts() {
-        setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
-        sortPosts(bySortingIndex: dateSortingControl.selectedSegmentIndex)
+        searchForPosts()
         postsRefresher.endRefreshing()
     }
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Get and set the flickr posts from the public feed
-        setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
+        // Search and get flickr posts from the public feed
+        searchForPosts()
         
         // Initialize, set up and add the refresher
         postsRefresher = UIRefreshControl()
@@ -72,6 +86,9 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
             alpha: 1
         ).cgColor
         dateSortingControl.layer.borderWidth = 1.5
+        
+        // Add action to search for posts with given tag
+        searchButton.addTarget(self, action: #selector(self.searchForPosts), for: .touchUpInside)
     }
     
     // MARK: Sorting posts

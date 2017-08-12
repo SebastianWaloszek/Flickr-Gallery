@@ -171,6 +171,8 @@
                     <connections>
                         <outlet property="collectionView" destination="ViX-S2-zE7" id="hHh-DE-fTD"/>
                         <outlet property="dateSortingControl" destination="oEu-Su-hXy" id="OFA-kD-AnD"/>
+                        <outlet property="searchButton" destination="kU1-PK-8i7" id="HCL-Ye-QVh"/>
+                        <outlet property="searchTextField" destination="dT2-d4-SwR" id="XX3-Rk-Rq1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9t-82-5Id" userLabel="First Responder" sceneMemberID="firstResponder"/>
