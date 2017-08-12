@@ -19,6 +19,7 @@
 		71E59D7A1F3CC5B800DCC968 /* FlickrWebsiteDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E59D791F3CC5B800DCC968 /* FlickrWebsiteDescription.swift */; };
 		71E59D7C1F3CC70400DCC968 /* FlickrPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E59D7B1F3CC70400DCC968 /* FlickrPost.swift */; };
 		71EA35981F3F2277006EC493 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EA35971F3F2277006EC493 /* DateExtension.swift */; };
+		71EA359D1F3F5B62006EC493 /* MailHelperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71EA359C1F3F5B62006EC493 /* MailHelperViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		71E59D791F3CC5B800DCC968 /* FlickrWebsiteDescription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrWebsiteDescription.swift; sourceTree = "<group>"; };
 		71E59D7B1F3CC70400DCC968 /* FlickrPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrPost.swift; sourceTree = "<group>"; };
 		71EA35971F3F2277006EC493 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		71EA359C1F3F5B62006EC493 /* MailHelperViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailHelperViewController.swift; sourceTree = "<group>"; };
 		A18F170440418E09AE2B71AE /* Pods-Flickr GalleryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Flickr GalleryTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Flickr GalleryTests/Pods-Flickr GalleryTests.release.xcconfig"; sourceTree = "<group>"; };
 		DD6DB8EA07D58503BD7A1BA4 /* Pods_Flickr_GalleryTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Flickr_GalleryTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,6 +128,7 @@
 		7181C1711F3C7A2B002FA8F4 /* Public Image Feed */ = {
 			isa = PBXGroup;
 			children = (
+				71EA359E1F3F5DA0006EC493 /* Helpers */,
 				71EA35961F3F222E006EC493 /* Type Extensions */,
 				71E59D781F3CC56200DCC968 /* Models */,
 				7181C1741F3C7A95002FA8F4 /* Views */,
@@ -158,6 +161,15 @@
 				71EA35971F3F2277006EC493 /* DateExtension.swift */,
 			);
 			path = "Type Extensions";
+			sourceTree = "<group>";
+		};
+		71EA359E1F3F5DA0006EC493 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				71EA359C1F3F5B62006EC493 /* MailHelperViewController.swift */,
+			);
+			name = Helpers;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		BA94406B5A6CA9DE6765F6AC /* Pods */ = {
@@ -390,6 +402,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71E59D7A1F3CC5B800DCC968 /* FlickrWebsiteDescription.swift in Sources */,
+				71EA359D1F3F5B62006EC493 /* MailHelperViewController.swift in Sources */,
 				71EA35981F3F2277006EC493 /* DateExtension.swift in Sources */,
 				7181C14F1F3C7413002FA8F4 /* AppDelegate.swift in Sources */,
 				71E59D7C1F3CC70400DCC968 /* FlickrPost.swift in Sources */,

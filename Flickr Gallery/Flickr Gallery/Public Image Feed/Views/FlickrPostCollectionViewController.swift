@@ -12,11 +12,11 @@ import SDWebImage
 
 class FlickrPostCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
 
-// MARK: IBOutlet
+    // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateSortingControl: UISegmentedControl!
 
-// MARK: Model
+    // MARK: Model
     var flickrPosts = [FlickrPost](){
         //Reload the collectionView when new posts where set
         didSet{
@@ -24,7 +24,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         }
     }
     
-// MARK: Constants
+    // MARK: Constants
     private struct Constants {
         // Identifier for the reusable cell in the collection view
         static let cellReuseIdentifier = "FlickrPostCell"
@@ -36,15 +36,14 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         static let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
     }
     
-// MARK: Initialization
-    
+
+    // MARK: Refreshing
     // For refreshing and getting new posts from flickr feed
     private var postsRefresher = UIRefreshControl(){
         // Set up the refresher and it to the subview
         didSet{
             postsRefresher.tintColor = UIColor.white
             postsRefresher.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
-            collectionView?.addSubview(postsRefresher)
         }
     }
     
@@ -54,15 +53,16 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         sortPosts(bySortingIndex: dateSortingControl.selectedSegmentIndex)
         postsRefresher.endRefreshing()
     }
-    
+    // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Get and set the flickr posts from the public feed
         setPublicFeedPosts(forURLString: Constants.flickrPublicFeedString)
         
-        // Initialize and set up the refresher
+        // Initialize, set up and add the refresher
         postsRefresher = UIRefreshControl()
+        collectionView?.addSubview(postsRefresher)
         
         // Make the segmented control look more square
         dateSortingControl.layer.borderColor = UIColor(
@@ -74,8 +74,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         dateSortingControl.layer.borderWidth = 1.5
     }
     
-// MARK: Sorting posts
-    
+    // MARK: Sorting posts
     private enum Sorting:Int{
         case byDatePublished
         case byDateTaken
@@ -102,8 +101,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         }
     }
     
-// MARK: UICollectionViewDataSource
-
+    // MARK: UICollectionViewDataSource
     //Return the number of sections in the collection view
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Constants.numberOfSections
@@ -122,6 +120,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
 
         //Check if the cell can be casted to custom class
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
+            // Set up the cell visualy
             flickrPostCell.setUpCell(asFLickrPost: flickrPosts[indexPath.item])
             
             // Configure the shareButton to display the action sheet for given cell
@@ -146,22 +145,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         
         // Add action to save image in device
         actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: { (action) in
-
-            do {
-                let imageData = try Data(contentsOf: imageURL)
-                if let image = UIImage(data: imageData){
-                    // Save the image to system gallery
-                    UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-                    
-                    // Inform the user that image was succesfully saved
-                    let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(alert, animated: true)
-                }
-            }catch let imageDataError{
-                print(imageDataError.localizedDescription)
-            }
-
+            self.saveToPhotoGallery(imageAtURL: imageURL)
         }))
         
         // Add action to open image in browser
@@ -175,7 +159,9 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         // Add action to send an email with the image
         actionSheet.addAction(UIAlertAction(title: "Share image by email", style: .default, handler: { (action) in
             // Send the image using the image's url
-            self.sendMail(withImage: imageURL)
+            let mailViewController = MailHelperViewController()
+            self.addChildViewController(mailViewController)
+            mailViewController.sendMail(withImage: imageURL)
         }))
         
         // Dismiss the actionSheet
@@ -185,7 +171,22 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         present(actionSheet, animated: true, completion: nil)
     }
     
-    
+    private func saveToPhotoGallery(imageAtURL imageURL:URL){
+        do {
+            let imageData = try Data(contentsOf: imageURL)
+            if let image = UIImage(data: imageData){
+                // Save the image to system gallery
+                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+                
+                // Inform the user that image was succesfully saved
+                let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                self.present(alert, animated: true)
+            }
+        }catch let imageDataError{
+            print(imageDataError.localizedDescription)
+        }
+    }
 }
 // MARK: URLSession
 extension FlickrPostCollectionViewController{
@@ -228,47 +229,7 @@ extension FlickrPostCollectionViewController{
             
         }).resume()
     }
-    
 }
 
-// MARK: MFMailCompose
-extension FlickrPostCollectionViewController: MFMailComposeViewControllerDelegate{
-    
-    // Send email with image under given url
-    func sendMail(withImage imageURL: URL) {
-        // Check if email can be send
-        if MFMailComposeViewController.canSendMail() {
-            // Create viewController for sending email
-            let mail = MFMailComposeViewController()
-            mail.mailComposeDelegate = self;
-            
-            do{
-                // Get the image data from the url
-                let imageData = try Data(contentsOf: imageURL)
-                
-                // Get image name from url
-                let imageURLWithoutExt = imageURL.deletingPathExtension()
-                let imageName = imageURLWithoutExt.lastPathComponent
-                
-                // Attach image to email
-                mail.addAttachmentData(imageData,
-                                       mimeType: "image/jpg",
-                                       fileName: imageName
-                )
-                
-                // Present the email sending view
-                self.present(mail, animated: true, completion: nil)
-                
-            }catch let imageDataError{
-                print(imageDataError.localizedDescription)
-            }
-        }
-    }
-    
-    // Hide the email sending view after sending email
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        controller.dismiss(animated: true, completion: nil)
-    }
-}
 
 

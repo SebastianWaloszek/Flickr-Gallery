@@ -10,6 +10,7 @@ import UIKit
 
 class FlickerPostCollectionViewCell: UICollectionViewCell {
     
+    // MARK: IBOutlets
     // Displays photo in flickr post
     @IBOutlet weak var photoImageView: UIImageView!
 
@@ -29,6 +30,7 @@ class FlickerPostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var shareButton: UIButton!
     
     
+    // MARK: Set-up
     // Make the cell display flickr post contents
     func setUpCell(asFLickrPost post:FlickrPost){
         
