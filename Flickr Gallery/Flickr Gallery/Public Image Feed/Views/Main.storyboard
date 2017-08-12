@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-Su-hXy">
-                                <rect key="frame" x="0.0" y="632" width="375" height="36"/>
+                                <rect key="frame" x="0.0" y="622" width="375" height="46"/>
                                 <color key="backgroundColor" red="0.96862745100000003" green="0.96470588239999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="BlW-xG-fKF"/>
+                                    <constraint firstAttribute="height" constant="45" id="BlW-xG-fKF"/>
                                 </constraints>
                                 <segments>
                                     <segment title="By published date"/>
@@ -34,7 +34,7 @@
                                 </connections>
                             </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-S2-zE7">
-                                <rect key="frame" x="0.0" y="65" width="375" height="567"/>
+                                <rect key="frame" x="0.0" y="76" width="375" height="546"/>
                                 <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="10" id="dHg-0D-5BT">
                                     <size key="itemSize" width="375" height="400"/>
@@ -83,9 +83,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Taken: 01/04/1976 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8m-bq-wI3">
-                                                    <rect key="frame" x="243" y="7" width="107" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Taken: 01/04/1976 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8m-bq-wI3">
+                                                    <rect key="frame" x="238" y="7" width="112" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="112" id="S8Z-IK-2CR"/>
+                                                        <constraint firstAttribute="height" constant="21" id="Z7K-Qu-BjF"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -104,6 +107,7 @@
                                         </view>
                                         <color key="backgroundColor" red="0.96862745098039216" green="0.96470588235294119" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="r8m-bq-wI3" secondAttribute="trailing" constant="25" id="6GI-mi-bJt"/>
                                             <constraint firstAttribute="trailing" secondItem="dzO-iP-F9S" secondAttribute="trailing" constant="25" id="CdP-0l-bwn"/>
                                             <constraint firstAttribute="bottom" secondItem="dzO-iP-F9S" secondAttribute="bottom" constant="5" id="Hww-e4-hcV"/>
                                             <constraint firstItem="Q6L-P8-6Ho" firstAttribute="leading" secondItem="pjN-G6-68I" secondAttribute="leadingMargin" constant="17" id="KTW-tJ-49I"/>
@@ -114,6 +118,7 @@
                                             <constraint firstItem="oMe-sQ-8eM" firstAttribute="top" secondItem="gVP-jx-ctm" secondAttribute="bottom" constant="8" id="dXE-Vb-OFp"/>
                                             <constraint firstItem="gVP-jx-ctm" firstAttribute="leading" secondItem="pjN-G6-68I" secondAttribute="leading" constant="25" id="eQk-Ca-Cdm"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="oMe-sQ-8eM" secondAttribute="trailing" constant="25" id="eoQ-ma-v9u"/>
+                                            <constraint firstItem="Q6L-P8-6Ho" firstAttribute="top" secondItem="r8m-bq-wI3" secondAttribute="bottom" constant="305" id="nML-rc-Ysi"/>
                                             <constraint firstItem="54b-pk-QPC" firstAttribute="top" secondItem="Q6L-P8-6Ho" secondAttribute="bottom" constant="5" id="pkI-xA-qgu"/>
                                             <constraint firstItem="54b-pk-QPC" firstAttribute="leading" secondItem="pjN-G6-68I" secondAttribute="leading" constant="25" id="xE6-ny-PdI"/>
                                         </constraints>
@@ -132,38 +137,25 @@
                                     <outlet property="delegate" destination="mqZ-ag-JK7" id="gXL-S0-JPK"/>
                                 </connections>
                             </collectionView>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search images by tag" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dT2-d4-SwR">
-                                <rect key="frame" x="16" y="25" width="281" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kU1-PK-8i7">
-                                <rect key="frame" x="305" y="25" width="54" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="ZJH-fL-45E"/>
-                                    <constraint firstAttribute="width" constant="54" id="g0Z-Si-pNU"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" title="Search">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                            <searchBar contentMode="redraw" placeholder="Search images by tag" translatesAutoresizingMaskIntoConstraints="NO" id="GFJ-Yo-z5O">
+                                <rect key="frame" x="0.0" y="20" width="375" height="56"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="search" enablesReturnKeyAutomatically="YES"/>
+                            </searchBar>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.48333333333333339" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="oEu-Su-hXy" firstAttribute="centerX" secondItem="zwA-Cx-RUy" secondAttribute="centerX" id="6Rf-ot-aTD"/>
-                            <constraint firstItem="bwk-r1-VbU" firstAttribute="trailing" secondItem="kU1-PK-8i7" secondAttribute="trailing" constant="16" id="APB-Qo-6pd"/>
                             <constraint firstItem="oEu-Su-hXy" firstAttribute="bottom" secondItem="bwk-r1-VbU" secondAttribute="bottom" id="BUy-cp-qSG"/>
-                            <constraint firstItem="kU1-PK-8i7" firstAttribute="leading" secondItem="dT2-d4-SwR" secondAttribute="trailing" constant="8" id="BaH-Vf-mwC"/>
                             <constraint firstItem="oEu-Su-hXy" firstAttribute="top" secondItem="ViX-S2-zE7" secondAttribute="bottom" id="Etf-F2-w2s"/>
-                            <constraint firstItem="ViX-S2-zE7" firstAttribute="top" secondItem="kU1-PK-8i7" secondAttribute="bottom" constant="10" id="OOZ-41-7E9"/>
+                            <constraint firstItem="GFJ-Yo-z5O" firstAttribute="top" secondItem="bwk-r1-VbU" secondAttribute="top" id="Kxz-OR-Q6B"/>
+                            <constraint firstItem="GFJ-Yo-z5O" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="Oxh-gC-n1G"/>
+                            <constraint firstItem="GFJ-Yo-z5O" firstAttribute="trailing" secondItem="bwk-r1-VbU" secondAttribute="trailing" id="TzX-q2-I96"/>
+                            <constraint firstItem="ViX-S2-zE7" firstAttribute="top" secondItem="GFJ-Yo-z5O" secondAttribute="bottom" id="Vbi-1A-cGC"/>
                             <constraint firstItem="oEu-Su-hXy" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="Yar-G8-NBZ"/>
                             <constraint firstItem="ViX-S2-zE7" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="d4z-HR-yek"/>
-                            <constraint firstItem="kU1-PK-8i7" firstAttribute="top" secondItem="bwk-r1-VbU" secondAttribute="top" constant="5" id="dvG-Ef-Zyq"/>
-                            <constraint firstItem="dT2-d4-SwR" firstAttribute="top" secondItem="bwk-r1-VbU" secondAttribute="top" constant="5" id="jBB-zc-ezL"/>
                             <constraint firstItem="bwk-r1-VbU" firstAttribute="trailing" secondItem="oEu-Su-hXy" secondAttribute="trailing" id="rQV-dQ-1KM"/>
-                            <constraint firstItem="dT2-d4-SwR" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" constant="16" id="vM9-cV-S93"/>
                             <constraint firstItem="ViX-S2-zE7" firstAttribute="trailing" secondItem="bwk-r1-VbU" secondAttribute="trailing" id="wU5-9I-e7o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwk-r1-VbU"/>
@@ -171,8 +163,7 @@
                     <connections>
                         <outlet property="collectionView" destination="ViX-S2-zE7" id="hHh-DE-fTD"/>
                         <outlet property="dateSortingControl" destination="oEu-Su-hXy" id="OFA-kD-AnD"/>
-                        <outlet property="searchButton" destination="kU1-PK-8i7" id="HCL-Ye-QVh"/>
-                        <outlet property="searchTextField" destination="dT2-d4-SwR" id="XX3-Rk-Rq1"/>
+                        <outlet property="searchBar" destination="GFJ-Yo-z5O" id="u6z-N4-gIO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9t-82-5Id" userLabel="First Responder" sceneMemberID="firstResponder"/>

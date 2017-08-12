@@ -15,8 +15,8 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateSortingControl: UISegmentedControl!
-    @IBOutlet weak var searchTextField: UITextField!
-    @IBOutlet weak var searchButton: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     
     // MARK: Model
     var flickrPosts = [FlickrPost](){
@@ -42,7 +42,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     @objc private func searchForPosts() {
         
         // If no tag was given search for posts without any criteria
-        guard let singleTag = searchTextField.text?.components(separatedBy: " ").first else{
+        guard let singleTag = searchBar.text?.components(separatedBy: " ").first else{
             setPublicFeedPosts(forURLString:  Constants.flickrPublicFeedString)
             return
         }
@@ -87,10 +87,14 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         ).cgColor
         dateSortingControl.layer.borderWidth = 1.5
         
-        // Add action to search for posts with given tag
-        searchButton.addTarget(self, action: #selector(self.searchForPosts), for: .touchUpInside)
+        // Set search bar's delegate
+        searchBar.delegate = self
+        
+        // Hide the keyboard when user touches the screen
+        hideKeyboardWhenTappedAround()
+
     }
-    
+
     // MARK: Sorting posts
     private enum Sorting:Int{
         case byDatePublished
@@ -147,7 +151,8 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
 
         return cell
     }
-        
+    
+    // MARK: Share button actions
     // Display the action sheed when the shareButton is pressed
     @objc func shareButtonPressed(sender: UIButton){
         
@@ -247,6 +252,37 @@ extension FlickrPostCollectionViewController{
         }).resume()
     }
 }
+
+// MARK: SearchBarDelegate
+// Handle the searchBar events
+extension FlickrPostCollectionViewController: UISearchBarDelegate{
+    // Hide the keyboard and cancel button
+    override func resignFirstResponder() -> Bool {
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+        return super.resignFirstResponder()
+    }
+    
+    // React to user pressing the cancel button
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+    }
+    
+    // React to user starting to edit textfield
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
+    // Search for posts when user
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchForPosts()
+        searchBar.resignFirstResponder()
+        searchBar.showsCancelButton = false
+    }
+}
+
 
 
 
