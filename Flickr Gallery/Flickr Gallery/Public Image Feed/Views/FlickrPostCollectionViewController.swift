@@ -14,7 +14,8 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
 
 // MARK: IBOutlet
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    @IBOutlet weak var dateSortingControl: UISegmentedControl!
+
 // MARK: Model
     var flickrPosts = [FlickrPost](){
         //Reload the collectionView when new posts where set
@@ -61,6 +62,10 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         
         // Initialize and set up the refresher
         postsRefresher = UIRefreshControl()
+        
+        // Make the segmented control look more square
+        dateSortingControl.layer.borderColor = UIColor.white.cgColor
+        dateSortingControl.layer.borderWidth = 1.5
     }
 
 // MARK: UICollectionViewDataSource

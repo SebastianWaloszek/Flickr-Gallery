@@ -18,10 +18,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="oEu-Su-hXy">
+                                <rect key="frame" x="0.0" y="632" width="375" height="36"/>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.96470588239999999" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="BlW-xG-fKF"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="By published date"/>
+                                    <segment title="By date taken"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </segmentedControl>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ViX-S2-zE7">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="10" id="dHg-0D-5BT">
+                                <rect key="frame" x="0.0" y="20" width="375" height="612"/>
+                                <color key="backgroundColor" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="10" id="dHg-0D-5BT">
                                     <size key="itemSize" width="375" height="400"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -87,7 +99,7 @@
                                                 </label>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.96763735699999998" green="0.96296278040000005" blue="0.97231193360000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="0.96862745098039216" green="0.96470588235294119" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="dzO-iP-F9S" secondAttribute="trailing" constant="25" id="CdP-0l-bwn"/>
                                             <constraint firstAttribute="bottom" secondItem="dzO-iP-F9S" secondAttribute="bottom" constant="5" id="Hww-e4-hcV"/>
@@ -118,17 +130,22 @@
                                 </connections>
                             </collectionView>
                         </subviews>
-                        <color key="backgroundColor" red="0.60000002379999995" green="0.40000000600000002" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ViX-S2-zE7" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="UX4-ba-RpC"/>
-                            <constraint firstItem="ViX-S2-zE7" firstAttribute="trailing" secondItem="bwk-r1-VbU" secondAttribute="trailing" id="Wik-Yr-zr8"/>
-                            <constraint firstItem="ViX-S2-zE7" firstAttribute="bottom" secondItem="bwk-r1-VbU" secondAttribute="bottom" id="hgV-mZ-ik3"/>
-                            <constraint firstItem="ViX-S2-zE7" firstAttribute="top" secondItem="bwk-r1-VbU" secondAttribute="top" id="pO0-4g-WAn"/>
+                            <constraint firstItem="oEu-Su-hXy" firstAttribute="centerX" secondItem="zwA-Cx-RUy" secondAttribute="centerX" id="6Rf-ot-aTD"/>
+                            <constraint firstItem="oEu-Su-hXy" firstAttribute="bottom" secondItem="bwk-r1-VbU" secondAttribute="bottom" id="BUy-cp-qSG"/>
+                            <constraint firstItem="ViX-S2-zE7" firstAttribute="trailing" secondItem="bwk-r1-VbU" secondAttribute="trailing" id="TJQ-Gp-mo9"/>
+                            <constraint firstItem="oEu-Su-hXy" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="Yar-G8-NBZ"/>
+                            <constraint firstItem="oEu-Su-hXy" firstAttribute="top" secondItem="ViX-S2-zE7" secondAttribute="bottom" id="fdE-3t-9Db"/>
+                            <constraint firstItem="ViX-S2-zE7" firstAttribute="top" secondItem="bwk-r1-VbU" secondAttribute="top" id="nsA-gs-qHy"/>
+                            <constraint firstItem="bwk-r1-VbU" firstAttribute="trailing" secondItem="oEu-Su-hXy" secondAttribute="trailing" id="rQV-dQ-1KM"/>
+                            <constraint firstItem="ViX-S2-zE7" firstAttribute="leading" secondItem="bwk-r1-VbU" secondAttribute="leading" id="z5X-xX-kQ7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bwk-r1-VbU"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="ViX-S2-zE7" id="hHh-DE-fTD"/>
+                        <outlet property="dateSortingControl" destination="oEu-Su-hXy" id="OFA-kD-AnD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9t-82-5Id" userLabel="First Responder" sceneMemberID="firstResponder"/>
