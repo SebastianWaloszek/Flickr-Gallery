@@ -122,47 +122,16 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
 
         //Check if the cell can be casted to custom class
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
-            configureAsFLickrPost(theCell: flickrPostCell, atIndexPath: indexPath)
+            flickrPostCell.setUpCell(asFLickrPost: flickrPosts[indexPath.item])
+            
+            // Configure the shareButton to display the action sheet for given cell
+            flickrPostCell.shareButton.tag = indexPath.row
+            flickrPostCell.shareButton.addTarget(self, action: #selector(self.shareButtonPressed(sender:)), for: .touchUpInside)
         }
 
         return cell
     }
-    
-    // Make the cell display flickr post contents
-    private func configureAsFLickrPost(theCell cell:FlickerPostCollectionViewCell,atIndexPath indexPath:IndexPath){
         
-        // Get the flickr post atIndexPath
-        let post = flickrPosts[indexPath.item]
-        
-        // Set the flickr post's image
-         cell.photoImageView.sd_setImage(with: post.media["m"], completed: nil)
-        
-        // Remove the unnessery parts of the author string
-        let authorString = post.author!.replacingOccurrences(
-            of: "nobody@flickr.com (\"",
-            with: ""
-            ).replacingOccurrences(
-                of: "\")",
-                with: ""
-        )
-        
-        // Set the post's author
-        cell.postAuthorLabel.text = "\(authorString)"
-        
-        // Set the post's published date
-        cell.datePublishedLabel.text = "Published: \(post.publishedDate.toFormattedString())"
-
-        // Set the date on which the photo was taken
-        cell.dateTakenLabel.text = "Taken: \(post.photoTakenDate.toFormattedString())"
-        
-        // Set the post's tags
-        cell.tagsLabel.text = "\(post.tags)"
-        
-        // Set up the shareButton to display the action sheet for given cell
-        cell.shareButton.tag = indexPath.row
-        cell.shareButton.addTarget(self, action: #selector(self.shareButtonPressed(sender:)), for: .touchUpInside)
-    }
-    
     // Display the action sheed when the shareButton is pressed
     @objc func shareButtonPressed(sender: UIButton){
         

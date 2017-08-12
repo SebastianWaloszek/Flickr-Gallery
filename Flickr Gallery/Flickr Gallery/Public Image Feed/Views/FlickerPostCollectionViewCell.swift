@@ -27,4 +27,34 @@ class FlickerPostCollectionViewCell: UICollectionViewCell {
     
     // Button for sharing post's contents
     @IBOutlet weak var shareButton: UIButton!
+    
+    
+    // Make the cell display flickr post contents
+    func setUpCell(asFLickrPost post:FlickrPost){
+        
+        // Set the flickr post's image
+        photoImageView.sd_setImage(with: post.media["m"], completed: nil)
+        
+        // Remove the unnessery parts of the author string
+        let authorString = post.author!.replacingOccurrences(
+            of: "nobody@flickr.com (\"",
+            with: ""
+            ).replacingOccurrences(
+                of: "\")",
+                with: ""
+        )
+        
+        // Set the post's author
+        postAuthorLabel.text = "\(authorString)"
+        
+        // Set the post's published date
+        datePublishedLabel.text = "Published: \(post.publishedDate.toFormattedString())"
+        
+        // Set the date on which the photo was taken
+        dateTakenLabel.text = "Taken: \(post.photoTakenDate.toFormattedString())"
+        
+        // Set the post's tags
+        tagsLabel.text = "\(post.tags)"
+    }
 }
+
