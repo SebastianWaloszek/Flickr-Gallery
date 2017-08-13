@@ -17,7 +17,7 @@ class FlickrHelperTests: XCTestCase {
         
         // Create a yesterday's post
         let postWithYesterdayDates = FlickrPost(
-            media: [String():URL(string: "test.com")!],
+            media: [String():URL(string: "https://dummyimage.com/600x400/000/fff")!],
             photoTakenDate: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             publishedDate: Calendar.current.date(byAdding: .day, value: -1, to: Date())!,
             author: String(),
@@ -26,7 +26,7 @@ class FlickrHelperTests: XCTestCase {
         
         // Create a today's post
         let postWithTodayDates = FlickrPost(
-            media: [String():URL(string: "test.com")!],
+            media: [String():URL(string: "https://dummyimage.com/600x400/000/fff")!],
             photoTakenDate: Date(),
             publishedDate: Date(),
             author: String(),

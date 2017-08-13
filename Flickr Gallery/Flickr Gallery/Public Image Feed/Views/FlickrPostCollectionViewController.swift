@@ -10,13 +10,12 @@ import UIKit
 import MessageUI
 import SDWebImage
 
-class FlickrPostCollectionViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource {
+class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataSource {
 
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var dateSortingControl: UISegmentedControl!
     @IBOutlet weak var searchBar: UISearchBar!
-    
     
     // MARK: Model
     var flickrPosts = [FlickrPost](){
@@ -30,9 +29,6 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     private struct Constants {
         // Identifier for the reusable cell in the collection view
         static let cellReuseIdentifier = "FlickrPostCell"
-        
-        // The number of sections in the collection view
-        static let numberOfSections = 1
         
         // The url of the public feed flickr posts in json format
         static let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
@@ -106,7 +102,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
     // MARK: UICollectionViewDataSource
     //Return the number of sections in the collection view
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return Constants.numberOfSections
+        return 1
     }
 
     //Return the number of items in the collection view
