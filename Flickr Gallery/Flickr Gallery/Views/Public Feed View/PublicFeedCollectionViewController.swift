@@ -131,7 +131,15 @@ class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataS
         
         // Add action to save image in device
         actionSheet.addAction(UIAlertAction(title: "Save image", style: .default, handler: { (action) in
-            self.saveToPhotoGallery(imageAtURL: imageURL)
+            let alert:UIAlertController?
+            if ImageSavingHelper.saveImageToGallery(withURL: imageURL){
+                // Inform the user that image was succesfully saved
+                alert = ImageSavingHelper.successfullSavingAlert
+            } else{
+                // Inform the user that image wasn't saved
+                alert = ImageSavingHelper.failedSavingAlert
+            }
+            self.present(alert!, animated: true)
         }))
         
         // Add action to open image in browser
@@ -155,23 +163,6 @@ class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataS
         
         // Show the action sheet
         present(actionSheet, animated: true, completion: nil)
-    }
-    
-    private func saveToPhotoGallery(imageAtURL imageURL:URL){
-        do {
-            let imageData = try Data(contentsOf: imageURL)
-            if let image = UIImage(data: imageData){
-                // Save the image to system gallery
-                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-                
-                // Inform the user that image was succesfully saved
-                let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alert, animated: true)
-            }
-        }catch let imageDataError{
-            print(imageDataError.localizedDescription)
-        }
     }
 }
 
