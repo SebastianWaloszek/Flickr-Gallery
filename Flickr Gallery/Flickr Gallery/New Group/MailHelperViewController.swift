@@ -12,7 +12,6 @@ import MessageUI
 
 class MailHelperViewController: UIViewController,MFMailComposeViewControllerDelegate{
     
-    // Send email with image under given url
     func sendMail(withImage imageURL: URL) {
         // Check if email can be send
         if MFMailComposeViewController.canSendMail() {

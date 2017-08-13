@@ -9,7 +9,7 @@
 import XCTest
 @testable import Flickr_Gallery
 
-class FlickrHelperTests: XCTestCase {
+class FlickrSortingHelperTests: XCTestCase {
     
     // FlickrHelper tests
     //Check if the posts sorting is correct
@@ -36,12 +36,12 @@ class FlickrHelperTests: XCTestCase {
         let posts = [postWithYesterdayDates,postWithTodayDates]
         
         // Sort the dates by date published
-        var sortedPosts = FlickrHelper.sortDateDescending(posts: posts, by: FlickrHelper.Sorting.byDatePublished)
+        var sortedPosts = FlickrSortingHelper.sortDateDescending(posts: posts, by: FlickrSortingHelper.Sorting.byDatePublished)
         
         XCTAssert(sortedPosts[0].publishedDate > sortedPosts[1].publishedDate, "Publish dates were not ordered descendingly")
         
         // Sort the dates by date photo was taken
-        sortedPosts = FlickrHelper.sortDateDescending(posts: posts, by: FlickrHelper.Sorting.byDateTaken)
+        sortedPosts = FlickrSortingHelper.sortDateDescending(posts: posts, by: FlickrSortingHelper.Sorting.byDateTaken)
         
         XCTAssert(sortedPosts[0].photoTakenDate > sortedPosts[1].photoTakenDate, "Photo taken dates were not ordered descendingly")
         

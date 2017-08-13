@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Flickr Post Collection View Controller-->
+        <!--Public Feed Collection View Controller-->
         <scene sceneID="fim-fq-ugu">
             <objects>
-                <viewController storyboardIdentifier="FlickrPostsVC" id="mqZ-ag-JK7" customClass="FlickrPostCollectionViewController" customModule="Flickr_Gallery" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlickrPostsVC" id="mqZ-ag-JK7" customClass="PublicFeedCollectionViewController" customModule="Flickr_Gallery" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="zwA-Cx-RUy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

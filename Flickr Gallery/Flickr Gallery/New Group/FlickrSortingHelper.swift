@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FlickrHelper{
+class FlickrSortingHelper{
     
     // MARK: Sorting posts
     enum Sorting:Int{

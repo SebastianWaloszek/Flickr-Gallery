@@ -10,7 +10,7 @@ import UIKit
 import MessageUI
 import SDWebImage
 
-class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataSource {
+class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataSource {
 
     // MARK: IBOutlets
     @IBOutlet weak var collectionView: UICollectionView!
@@ -25,33 +25,23 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
         }
     }
     
+    // MARK: Helpers
+    var flickrURLHelper = FlickrFeedURLHelper(){
+        didSet{
+            flickrURLHelper.delegate = self
+        }
+    }
+    
     // MARK: Constants
     private struct Constants {
         // Identifier for the reusable cell in the collection view
         static let cellReuseIdentifier = "FlickrPostCell"
-        
-        // The url of the public feed flickr posts in json format
-        static let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
-    }
-    
-    // MARK: Searching by tag
-    @objc private func searchForPosts() {
-        
-        // If no tag was given search for posts without any criteria
-        guard let singleTag = searchBar.text?.components(separatedBy: " ").first else{
-            setPublicFeedPosts(forURLString:  Constants.flickrPublicFeedString)
-            return
-        }
-    
-        // Prepare URL and search for posts with given tag
-        let searchURL = Constants.flickrPublicFeedString + "&tags=\(singleTag)"
-        setPublicFeedPosts(forURLString:  searchURL)
     }
     
     // MARK: Refreshing
     // For refreshing and getting new posts from flickr feed
     private var postsRefresher = UIRefreshControl(){
-        // Set up the refresher and add it to the subview
+        // Set up the refresher and add it action to get new posts
         didSet{
             postsRefresher.tintColor = UIColor.white
             postsRefresher.addTarget(self, action: #selector(refreshPosts), for: .valueChanged)
@@ -60,15 +50,12 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
     
     // Get new posts,sort them and then end refreshing
     @objc func refreshPosts() {
-        searchForPosts()
+        flickrURLHelper.getPublicFeedPosts(withTag: searchBar.text?.firstWord)
         postsRefresher.endRefreshing()
     }
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Search and get flickr posts from the public feed
-        searchForPosts()
         
         // Initialize, set up and add the refresher
         postsRefresher = UIRefreshControl()
@@ -83,34 +70,34 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
         ).cgColor
         dateSortingControl.layer.borderWidth = 1.5
         
-        // Set search bar's delegate
         searchBar.delegate = self
         
         // Hide the keyboard when user touches the screen
         hideKeyboardWhenTappedAround()
-
+        
+        flickrURLHelper = FlickrFeedURLHelper()
+        
+        // Search and get flickr posts from the public feed
+        flickrURLHelper.getPublicFeedPosts(withTag: searchBar.text?.firstWord)
     }
     
-    // Sort the posts after the sorting mode was changed
+    // Sort the posts after user changed the sorting mode
     @IBAction func changePostsSorting(_ sender: UISegmentedControl) {
-        flickrPosts = FlickrHelper.sortDateDescending(
+        flickrPosts = FlickrSortingHelper.sortDateDescending(
             posts: flickrPosts,
-            by: FlickrHelper.Sorting(rawValue: sender.selectedSegmentIndex)!
+            by: FlickrSortingHelper.Sorting(rawValue: sender.selectedSegmentIndex)!
         )
     }
     
     // MARK: UICollectionViewDataSource
-    //Return the number of sections in the collection view
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
-    //Return the number of items in the collection view
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return flickrPosts.count
     }
 
-    //Return the cell for a given index
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         //Get the cell from the collectionView using the specified identifier
@@ -118,7 +105,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
 
         //Check if the cell can be casted to custom class
         if let flickrPostCell = cell as? FlickerPostCollectionViewCell{
-            // Set up the cell visualy
+            // Set up the cell visually
             flickrPostCell.setUpCell(asFLickrPost: flickrPosts[indexPath.item])
             
             // Configure the shareButton to display the action sheet for given cell
@@ -163,7 +150,7 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
             mailViewController.sendMail(withImage: imageURL)
         }))
         
-        // Dismiss the actionSheet
+        // Add action to dismiss the actionSheet
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         // Show the action sheet
@@ -187,55 +174,20 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDataS
         }
     }
 }
-// MARK: URLSession
-extension FlickrPostCollectionViewController{
-    
-    // Get and set the flickr posts from the public feed
-    func setPublicFeedPosts(forURLString urlString:String){
-        
-        // Try creating and URL from given string
-        guard let flickrPublicFeedURL = URL(string: urlString) else {
-            print("Error while creating URL from String")
-            return
-        }
-        
-        // Create a dataTask to get the flickr public feed data
-        URLSession.shared.dataTask(with: flickrPublicFeedURL, completionHandler: { [weak self] (data, response, error) in
-            
-            // Check if data isn't nil
-            guard let data = data else{
-                print("Data is nil")
-                return
-            }
-            
-            do{
-                // Set up the json decoder
-                let jsonDecoder = JSONDecoder()
-                jsonDecoder.dateDecodingStrategy = .iso8601
-                
-                // Try to decode json from the aquired data
-                let websiteDescription = try jsonDecoder.decode(FlickrWebsiteDescription.self, from: data)
-                
-                // Take the task of setting and sorting the flickr posts to the main queue
-                DispatchQueue.main.async {
-                    self?.flickrPosts = websiteDescription.posts
-                    self?.flickrPosts = FlickrHelper.sortDateDescending(
-                        posts: self!.flickrPosts,
-                        by: FlickrHelper.Sorting(rawValue: self!.dateSortingControl!.selectedSegmentIndex)!
-                    )
-                }
 
-            }catch let jsonError{
-                print(jsonError.localizedDescription)
-            }
-            
-        }).resume()
+extension PublicFeedCollectionViewController: FlickrFeedURLHelperDelegate{
+    // Sort and set the flickr posts after fetching them from public feed
+    func didFinishURLRequest(withPosts posts: [FlickrPost]) {
+        self.flickrPosts = FlickrSortingHelper.sortDateDescending(
+            posts: posts,
+            by: FlickrSortingHelper.Sorting(rawValue: self.dateSortingControl!.selectedSegmentIndex)!
+        )
     }
 }
 
 // MARK: SearchBarDelegate
 // Handle the searchBar events
-extension FlickrPostCollectionViewController: UISearchBarDelegate{
+extension PublicFeedCollectionViewController: UISearchBarDelegate{
     // Hide the keyboard and cancel button
     override func resignFirstResponder() -> Bool {
         searchBar.resignFirstResponder()
@@ -257,7 +209,7 @@ extension FlickrPostCollectionViewController: UISearchBarDelegate{
     
     // Search for posts when user
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchForPosts()
+        flickrURLHelper.getPublicFeedPosts(withTag: searchBar.text?.firstWord)
         searchBar.resignFirstResponder()
         searchBar.showsCancelButton = false
     }
