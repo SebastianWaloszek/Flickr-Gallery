@@ -11,6 +11,7 @@ import XCTest
 
 class FlickrPostCollectionVCTests: XCTestCase {
     
+    // MARK: Variables
     var collectionViewController: FlickrPostCollectionViewController!
     var collectionView: UICollectionView!
     
@@ -28,18 +29,25 @@ class FlickrPostCollectionVCTests: XCTestCase {
         
     }
     
-    //Check if the viewController was instantiated
+    //Check if the viewController was initialized
     func testCanInstantiateViewController(){
-        XCTAssertNotNil(collectionViewController)
+        XCTAssertNotNil(collectionViewController,"The controllerViewController wasn not initialized")
     }
     
-    //Check if the collectionView was instantiated
+    // MARK: CollectionView tests
+    //Check if the collectionView was initialized
     func testCanInstantiateCollectionView(){
-        XCTAssertNotNil(collectionView)
+        XCTAssertNotNil(collectionView,"The collectionView wasn not initialized")
     }
     
     //Check if the collectionView has a dataSource
-    func testHasDataSource() {
-        XCTAssertNotNil(collectionView.dataSource)
+    func testHasCollectionDataSource() {
+        XCTAssertNotNil(collectionView.dataSource,"The collectionView has no dataSource")
     }
+    
+    //Check if the collectionView has a delegate
+    func testHasCollectionDelegate() {
+        XCTAssertNotNil(collectionView.delegate,"The collectionView has no delegate")
+    }
+    
 }

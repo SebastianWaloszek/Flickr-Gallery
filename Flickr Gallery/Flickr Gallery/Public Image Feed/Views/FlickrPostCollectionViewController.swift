@@ -94,32 +94,13 @@ class FlickrPostCollectionViewController: UIViewController,UICollectionViewDeleg
         hideKeyboardWhenTappedAround()
 
     }
-
-    // MARK: Sorting posts
-    private enum Sorting:Int{
-        case byDatePublished
-        case byDateTaken
-    }
     
     // Sort the posts after the sorting mode was changed
     @IBAction func changePostsSorting(_ sender: UISegmentedControl) {
-        sortPosts(bySortingIndex: sender.selectedSegmentIndex)
-    }
-    
-    //Sort the posts by date
-    private func sortPosts(bySortingIndex sortingIndex:Int){
-        switch sortingIndex {
-        // Sort the posts by newest publish date
-        case Sorting.byDatePublished.rawValue:
-            flickrPosts = flickrPosts.sorted(by: {$0.publishedDate > $1.publishedDate })
-            
-         // Sort the posts by newest photo taken date
-        case Sorting.byDateTaken.rawValue:
-            flickrPosts = flickrPosts.sorted(by: {$0.photoTakenDate > $1.photoTakenDate })
-            
-        default:
-            break
-        }
+        flickrPosts = FlickrHelper.sortDateDescending(
+            posts: flickrPosts,
+            by: FlickrHelper.Sorting(rawValue: sender.selectedSegmentIndex)!
+        )
     }
     
     // MARK: UICollectionViewDataSource
@@ -242,7 +223,10 @@ extension FlickrPostCollectionViewController{
                 // Take the task of setting and sorting the flickr posts to the main queue
                 DispatchQueue.main.async {
                     self?.flickrPosts = websiteDescription.posts
-                    self?.sortPosts(bySortingIndex: (self?.dateSortingControl?.selectedSegmentIndex)!)
+                    self?.flickrPosts = FlickrHelper.sortDateDescending(
+                        posts: self!.flickrPosts,
+                        by: FlickrHelper.Sorting(rawValue: self!.dateSortingControl!.selectedSegmentIndex)!
+                    )
                 }
 
             }catch let jsonError{
