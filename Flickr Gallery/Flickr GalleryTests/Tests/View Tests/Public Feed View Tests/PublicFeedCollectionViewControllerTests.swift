@@ -20,7 +20,7 @@ class PublicFeedCollectionViewControllerTests: XCTestCase {
         super.setUp()
         
         //Get the tested viewController from the storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let storyboard = UIStoryboard(name: "Public Feed", bundle: nil)
         viewController = storyboard.instantiateViewController(withIdentifier: "FlickrPostsVC") as! PublicFeedCollectionViewController
         
         // Trigger view load 
