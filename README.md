@@ -18,3 +18,5 @@ Known issues:
 
 Possible fix:
 - A JSON formatting method must be implemented.
+
+![alt text](http://s6.uploads.ru/t/9dQtj.png) ![alt text](http://se.uploads.ru/t/9zfRu.png)
