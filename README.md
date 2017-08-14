@@ -15,5 +15,6 @@ App functionality:
 
 Known issues:
 - Sometimes the format of the requested JSON causes the JSON decoder to fail with the message: "The data couldn’t be read because it isn’t in the correct format."
+
 Possible fix:
 - A JSON formatting method must be implemented.
