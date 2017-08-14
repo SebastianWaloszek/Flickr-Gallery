@@ -15,6 +15,7 @@ class PublicFeedCollectionViewControllerTests: XCTestCase {
     var viewController: PublicFeedCollectionViewController!
     var collectionView: UICollectionView!
     
+    // MARK: SetUp
     override func setUp() {
         super.setUp()
         
@@ -30,33 +31,37 @@ class PublicFeedCollectionViewControllerTests: XCTestCase {
     }
     // MARK: ViewController tests
     //Check if the viewController was initialized
-    func testCanInstantiateViewController(){
+    func testWasViewControllerInitialized(){
         XCTAssertNotNil(viewController,"The controllerViewController wasn't initialized")
     }
     
     //Check the searchbar's delagate
-    func testHasSearchBarDelegate() {
+    func testSearchBarDelegate() {
         XCTAssertNotNil(viewController.searchBar.delegate,"The searchBar has no delegate")
         XCTAssertTrue(viewController === viewController.searchBar.delegate, "The viewController isn't searchbar's delegate")
     }
     
+    //Check the URLHelper's delegate
+    func testURLHelperDelegate() {
+        XCTAssertNotNil(viewController.flickrURLHelper.delegate,"The URLHelper has no delegate")
+        XCTAssertTrue(viewController === viewController.flickrURLHelper.delegate, "The viewController isn't URLHelper's delegate")
+    }
+    
     // MARK: CollectionView tests
     //Check if the collectionView was initialized
-    func testCanInstantiateCollectionView(){
+    func testWasCollectionViewInitialized(){
         XCTAssertNotNil(collectionView,"The collectionView wasn't initialized")
     }
     
     //Check the collectionView's dataSource
-    func testHasCollectionDataSource() {
+    func testCollectionViewDataSource() {
         XCTAssertNotNil(collectionView.dataSource,"The collectionView has no dataSource")
         XCTAssertTrue(viewController === collectionView.dataSource, "The viewController isn't collectionView's dataSource")
     }
     
     //Check the collectionView's delegate
-    func testHasCollectionDelegate() {
+    func testCollectionViewDelegate() {
         XCTAssertNotNil(collectionView.delegate,"The collectionView has no delegate")
         XCTAssertTrue(viewController === collectionView.delegate, "The viewController isn't collectionView's delegate")
     }
-    
-    
 }

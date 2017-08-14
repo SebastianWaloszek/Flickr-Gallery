@@ -9,7 +9,7 @@
 import XCTest
 @testable import Flickr_Gallery
 
-class FlickrURLHelperTests: XCTestCase {
+class FlickrFeedURLHelper: XCTestCase {
     
     // Check if call to Flickr API succedes for given URL
     func testAsynchronousURLConnectionToFlickrAPI() {

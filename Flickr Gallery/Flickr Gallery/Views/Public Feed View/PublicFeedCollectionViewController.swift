@@ -53,6 +53,16 @@ class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataS
         flickrURLHelper.getPublicFeedPosts(withTag: searchBar.text?.firstWord)
         postsRefresher.endRefreshing()
     }
+    
+    // IBActions
+    // Sort the posts after user changed the sorting mode
+    @IBAction func changePostsSorting(_ sender: UISegmentedControl) {
+        flickrPosts = FlickrSortingHelper.sortDateDescending(
+            posts: flickrPosts,
+            by: FlickrSortingHelper.Sorting(rawValue: sender.selectedSegmentIndex)!
+        )
+    }
+    
     // MARK: Initialization
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,14 +89,6 @@ class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataS
         
         // Search and get flickr posts from the public feed
         flickrURLHelper.getPublicFeedPosts(withTag: searchBar.text?.firstWord)
-    }
-    
-    // Sort the posts after user changed the sorting mode
-    @IBAction func changePostsSorting(_ sender: UISegmentedControl) {
-        flickrPosts = FlickrSortingHelper.sortDateDescending(
-            posts: flickrPosts,
-            by: FlickrSortingHelper.Sorting(rawValue: sender.selectedSegmentIndex)!
-        )
     }
     
     // MARK: UICollectionViewDataSource
@@ -165,7 +167,7 @@ class PublicFeedCollectionViewController: UIViewController,UICollectionViewDataS
         present(actionSheet, animated: true, completion: nil)
     }
 }
-
+// MARK: FlickrFeedURLHelperDelegate
 extension PublicFeedCollectionViewController: FlickrFeedURLHelperDelegate{
     // Sort and set the flickr posts after fetching them from public feed
     func didFinishURLRequest(withPosts posts: [FlickrPost]) {

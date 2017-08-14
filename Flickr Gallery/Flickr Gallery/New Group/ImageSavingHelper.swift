@@ -11,6 +11,7 @@ import UIKit
 
 class ImageSavingHelper{
     
+    // MARK: Alert variables
     static var successfullSavingAlert:UIAlertController{
         get{
             let alert = UIAlertController(title: "Saved!", message: "Image saved successfully", preferredStyle: .alert)
@@ -27,6 +28,7 @@ class ImageSavingHelper{
         }
     }
     
+    // MARK: Saving
     static func saveImageToGallery(withURL imageURL:URL) -> Bool{
         do {
             let imageData = try Data(contentsOf: imageURL)

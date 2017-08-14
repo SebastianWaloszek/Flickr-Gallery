@@ -8,18 +8,21 @@
 
 import Foundation
 
+// MARK: Delegate protocol
 protocol FlickrFeedURLHelperDelegate: class{
     func didFinishURLRequest(withPosts posts:[FlickrPost])
 }
 
-// MARK: URLSession
 class FlickrFeedURLHelper{
     
+    // MARK: Delegate
     weak var delegate:FlickrFeedURLHelperDelegate?
     
+    // MARK: Constant
     // The url of the public feed flickr posts in json format
     private let flickrPublicFeedString = "https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1"
     
+    // MARK: URLSession
     // Get and set the flickr posts from the public feed
     func getPublicFeedPosts(withTag tag:String?){
         
